@@ -8,8 +8,10 @@
   var KEEP_MS = 10 * 60 * 1000;          // answers kept this long per visit (GitHub allows 60 calls an hour)
   var FILES = { mac: /^SimcoeTrading-mac-.+\.zip$/, windows: /^SimcoeTrading-windows-.+-setup\.exe$/ };
   var SUBS = { mac: "Apple Silicon · macOS 14 or later", windows: "Windows 10 or 11, 64-bit" };
-  // lines of a release's "What's new" the site leaves out: notes on the plan document rather than the app
-  var HIDE = [/^RELEASE_PLAN\b/i];
+  // lines of a release's "What's new" the site leaves out, for releases made before the release job did
+  // (tools/release_notes.py INTERNAL: the same list)
+  var HIDE = ["RELEASE_PLAN", "UI_PLAN", "CLAUDE.md", "SETUP.md", "README", "Website", "Privacy page", "Tests", "test_",
+              "Engine server", "Releases", "Release job", "Release builds", "Internal"];
 
   function stored(key) {
     try {
@@ -57,7 +59,7 @@
     String(body || "").split(/\r?\n/).forEach(function (line) {
       if (/^##\s/.test(line)) { on = /^##\s+what'?s new/i.test(line); return; }
       var m = on && line.match(/^\s*[-*]\s+(.*\S)/);
-      if (m && !HIDE.some(function (re) { return re.test(m[1]); })) out.push(m[1].replace(/\*\*|`/g, ""));
+      if (m && !HIDE.some(function (p) { return m[1].indexOf(p) === 0; })) out.push(m[1].replace(/\*\*|`/g, ""));
     });
     return out;
   }
