@@ -1,2 +1,6 @@
-# simcoe-trading
-Simcoe Trading downloads: release files only (the app's source is private).
+# Simcoe Trading
+
+Download it at **https://simcoetrading.com**.
+
+This repository holds Simcoe Trading's release files (under Releases) and its website (`docs/`, served by GitHub
+Pages). The app's source is private.
