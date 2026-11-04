@@ -6,6 +6,7 @@
   var REPO = "sparnglbarngl-lab/simcoe-trading";
   var API = "https://api.github.com/repos/" + REPO;
   var KEEP_MS = 10 * 60 * 1000;          // answers kept this long per visit (GitHub allows 60 calls an hour)
+  // Linux is a temporary placeholder; only real release downloads are updated here.
   var FILES = { mac: /^SimcoeTrading-mac-.+\.zip$/, windows: /^SimcoeTrading-windows-.+-setup\.exe$/ };
   var SUBS = { mac: "Apple Silicon · macOS 14 or later", windows: "Windows 10 or 11, 64-bit" };
   // lines of a release's "What's new" the site leaves out, for releases made before the release job did
@@ -77,22 +78,38 @@
     if (/android|iphone|ipad|ipod/i.test(ua) || (/mac/i.test(p) && navigator.maxTouchPoints > 1)) return "mobile";
     if (/mac/i.test(p) || /Macintosh/.test(ua)) return "mac";
     if (/win/i.test(p) || /Windows/.test(ua)) return "windows";
+    if (/linux/i.test(p) || /Linux/.test(ua)) return "linux";
     return "";
   }
 
-  /* The visitor's computer's button first and filled, the other outlined. */
+  /* The visitor's computer's button centered between the 3 buttons and filled, the others outlined. */
+  var FLANK = {
+    mac: ["windows", "linux"],
+    windows: ["mac", "linux"],
+    linux: ["mac", "windows"]
+  };
+
   function arrange() {
     var row = document.querySelector(".dl-row");
     if (!row) return;
     var mine = platform();
     if (mine === "mobile") {
-      var note = el("p", "hint", "Simcoe Trading runs on a Mac or a Windows PC. Open this page on your computer to download it.");
+      var note = el("p", "hint", "Open this page on a Mac or Windows computer to download Simcoe Trading. Linux is coming soon.");
       row.parentNode.insertBefore(note, row.nextSibling);
       return;
     }
     if (!mine) return;
-    var first = row.querySelector('[data-dl="' + mine + '"]');
-    if (first) row.insertBefore(first, row.firstChild);
+    var flank = FLANK[mine];
+    if (flank) {
+      var center = row.querySelector('[data-dl="' + mine + '"]');
+      var left = row.querySelector('[data-dl="' + flank[0] + '"]');
+      var right = row.querySelector('[data-dl="' + flank[1] + '"]');
+      if (center && left && right) {
+        row.appendChild(left);
+        row.appendChild(center);
+        row.appendChild(right);
+      }
+    }
     Array.prototype.forEach.call(row.querySelectorAll("[data-dl]"), function (a) {
       a.classList.toggle("alt", a.getAttribute("data-dl") !== mine);
     });
@@ -110,6 +127,15 @@
       Array.prototype.forEach.call(document.querySelectorAll('[data-dl-sub="' + k + '"]'), function (s) {
         s.textContent = SUBS[k] + " · " + mb(files[k].size);
       });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-release-date]"), function (node) {
+      var published = new Date(rel.published_at);
+      if (!isNaN(published)) {
+        node.dateTime = published.toISOString();
+        node.textContent = "Latest Release " + published.toLocaleDateString("en-GB", {
+          day: "numeric", month: "short", year: "numeric", timeZone: "UTC"
+        });
+      }
     });
     Array.prototype.forEach.call(document.querySelectorAll("[data-latest]"), function (p) {
       p.textContent = "Version ";
@@ -162,7 +188,7 @@
 
   function start() {
     arrange();
-    var wantsLatest = document.querySelector("[data-dl], [data-latest], [data-notes]");
+    var wantsLatest = document.querySelector("[data-dl], [data-latest], [data-notes], [data-release-date]");
     if (wantsLatest) {
       getJSON("/releases/latest").then(showLatest).catch(function () {
         failed('[data-notes="latest"]', "The changes couldn't be loaded just now. See");

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="580" viewBox="0 0 620 580" fill="none">
+  <defs>
+    <radialGradient id="halo"><stop stop-color="#d58121" stop-opacity=".18"/><stop offset="1" stop-color="#b16b1a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="150" y1="130" x2="440" y2="430" gradientUnits="userSpaceOnUse"><stop stop-color="#674019"/><stop offset=".28" stop-color="#ffe4a2"/><stop offset=".46" stop-color="#d69c46"/><stop offset=".6" stop-color="#684011"/><stop offset=".8" stop-color="#f0bb6a"/><stop offset="1" stop-color="#714116"/></linearGradient>
+  </defs>
+  <ellipse cx="310" cy="280" rx="275" ry="260" fill="url(#halo)"/>
+  <g stroke="#b98b48" stroke-opacity=".3"><ellipse cx="310" cy="280" rx="229" ry="93" transform="rotate(-24 310 280)"/><ellipse cx="310" cy="280" rx="215" ry="108" transform="rotate(58 310 280)"/></g>
+  <g stroke="url(#gold)" stroke-width="28"><ellipse cx="310" cy="280" rx="141" ry="79" transform="rotate(-32 310 280)"/><ellipse cx="310" cy="280" rx="141" ry="79" transform="rotate(88 310 280)"/><ellipse cx="310" cy="280" rx="141" ry="79" transform="rotate(208 310 280)"/></g>
+  <g fill="#ffd892"><circle cx="112" cy="196" r="2"/><circle cx="489" cy="372" r="3"/><circle cx="402" cy="106" r="2"/><circle cx="193" cy="442" r="1"/><circle cx="513" cy="202" r="1"/><circle cx="143" cy="353" r="1.5"/></g>
+</svg>
