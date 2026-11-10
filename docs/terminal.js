@@ -118,7 +118,7 @@ import "./creator.js";
     document.body.dataset.activeView = view;
     const status = $("[data-status-text]");
     if (status) status.textContent = view === "home" ? "Welcome to Simcoe Trading" : pageNames[view] + " / Desktop app";
-    document.title = view === "home" ? "Simcoe Trading — Your markets. Your workspace." : pageNames[view] + " · Simcoe Trading";
+    document.title = view === "home" ? "Simcoe Trading" : pageNames[view] + " · Simcoe Trading";
     if (view === "home") {
       if (["download", "features"].includes(target)) requestAnimationFrame(() => {
         if (state.view === "home" && location.hash.slice(1) === target) $("#" + target)?.scrollIntoView({behavior:"smooth",block:"center"});
