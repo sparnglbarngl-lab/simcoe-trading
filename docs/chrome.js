@@ -127,7 +127,7 @@ import {closeSelects, focusSelect} from "./selects.js";
     if (action==="updates"){location.href=new URL('whats-new.html',home).href;return;}
     if (action==="workspaces"){$('[data-view-link="dashboard"]').click();return;}
     if (action==="dock"){window.focus();return;}
-    if (action==="sounds"){info("SOUNDS",'<p>Notification sounds are available in the desktop app for price alerts, fills, and updates.</p><p><a href="'+home+'#download">Get the desktop terminal ↗</a></p>');return;}
+    if (action==="sounds"){info("SOUNDS",'<p>Notification sounds are available in the desktop app for price alerts, fills, and updates. They're muted until you turn them on in View › Sounds….</p><p><a href="'+home+'#download">Get the desktop terminal ↗</a></p>');return;}
     if (action==="quit"){window.close();return;}
     if (action==="find"){
       info("FIND IN PAGE",'<form data-find-form class="control-row"><label class="form-field">FIND<input type="search" name="query" required aria-label="Find text in this page"></label><button class="action-button primary" type="submit">FIND NEXT</button></form>');
