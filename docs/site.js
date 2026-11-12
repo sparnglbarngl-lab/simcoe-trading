@@ -7,8 +7,11 @@
   var API = "https://api.github.com/repos/" + REPO;
   var KEEP_MS = 10 * 60 * 1000;          // answers kept this long per visit (GitHub allows 60 calls an hour)
   // Linux is a temporary placeholder; only real release downloads are updated here.
-  var FILES = { mac: /^SimcoeTrading-mac-.+\.zip$/, windows: /^SimcoeTrading-windows-.+-setup\.exe$/ };
-  var SUBS = { mac: "Apple Silicon · macOS 14.4 or later", windows: "Windows 10 or 11, 64-bit" };
+  // (macintel: the Intel Mac build, from 2026-11-12; its links stay hidden, [data-dl-show], until a release has it)
+  var FILES = { mac: /^SimcoeTrading-mac-.+\.zip$/, macintel: /^SimcoeTrading-macintel-.+\.zip$/,
+                windows: /^SimcoeTrading-windows-.+-setup\.exe$/ };
+  var SUBS = { mac: "Apple Silicon · macOS 14.4 or later", macintel: "Intel Mac · macOS 14.4 or later",
+               windows: "Windows 10 or 11, 64-bit" };
   // lines of a release's "What's new" the site leaves out, for releases made before the release job did
   // (tools/release_notes.py INTERNAL: the same list)
   var HIDE = ["RELEASE_PLAN", "UI_PLAN", "CLAUDE.md", "SETUP.md", "README", "Website", "Privacy page", "Tests", "test_",
@@ -126,6 +129,9 @@
       });
       Array.prototype.forEach.call(document.querySelectorAll('[data-dl-sub="' + k + '"]'), function (s) {
         s.textContent = SUBS[k] + " · " + mb(files[k].size);
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('[data-dl-show="' + k + '"]'), function (n) {
+        n.hidden = false;
       });
     });
     Array.prototype.forEach.call(document.querySelectorAll("[data-release-date]"), function (node) {

@@ -136,10 +136,13 @@
 <section class="band band-alt" id="mac">
   <div class="wrap narrow">
     <h2>On a Mac</h2>
-    <p>You need an Apple Silicon Mac (M1 or later) with macOS 14.4 Sonoma or later. To check, choose
-      <strong>Apple menu › About This Mac</strong>; to update, <strong>System Settings › General › Software Update</strong>.</p>
+    <p>You need an Apple Silicon Mac (M1 or later) with macOS 14.4 Sonoma or later<span data-dl-show="macintel" hidden>,
+      or an Intel Mac with macOS 14.4 or later (most Intel Macs from 2018 on)</span>. To check, choose
+      <strong>Apple menu › About This Mac</strong>: it shows the <em>Chip</em> (Apple M1, M2 …) or, on an Intel Mac,
+      the <em>Processor</em>, and the macOS version. To update, <strong>System Settings › General › Software Update</strong>.</p>
     <ol class="steps">
-      <li><strong>Download it.</strong> <a data-dl="mac" href="https://github.com/sparnglbarngl-lab/simcoe-trading/releases/latest">Download for Mac</a>.
+      <li><strong>Download it.</strong> <a data-dl="mac" href="https://github.com/sparnglbarngl-lab/simcoe-trading/releases/latest">Download for Mac</a><span data-dl-show="macintel" hidden>
+        (Apple Silicon), or <a data-dl="macintel" href="https://github.com/sparnglbarngl-lab/simcoe-trading/releases/latest">Download for Intel Mac</a></span>.
         Safari unzips it for you. In Chrome or Firefox, open your Downloads folder and double-click the zip file.</li>
       <li><strong>Move it to Applications.</strong> In Finder, drag <em>Simcoe Trading</em> from Downloads into
         Applications (in Finder's sidebar, or Go › Applications). It needs to be there to update itself.</li>
